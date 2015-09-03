@@ -1,0 +1,73 @@
+  308  BEGIN HOMEWORK 1
+  309  ls
+  310  wget ftp://ftp.imicrobe.us/tmp/mouse.fa
+  311  pwd
+  312  cd ..
+  313  ls -l
+  314  ls -l | wc -l
+  315  ls -F
+  316  ls -F | wc -l
+  317  cd njlytal
+  318  ls
+  319  mv mouse.fa sequences.fasta
+  320  ls
+  321  wc -l sequences.fasta
+  322  wc -c sequences.fasta
+  323  head -1 sequences.fasta
+  324  tail -3 sequences.fasta
+  325  grep -v '>' mouse.fa | wc -l
+  326  grep -v '>' sequences.fa | wc -l
+  327  grep -v '>' sequences.fasta | wc -l
+  328  mv sequences.fasta mouse.fa
+  329  ls
+  330  mkdir fasta
+  331  cp mouse.fa fasta
+  332  cd fasta
+  333  ls
+  334  cd ..
+  335  ls
+  336  rm mouse.fa
+  337  man rm
+  338  man cp
+  339  ls
+  340  cd work
+  341  ls
+  342  cd ..
+  343  cd fasta
+  344  cp mouse.fa njlytal
+  345  cd ..
+  346  ls
+  347  cd fasta
+  348  ls
+  349  nano njlytal
+  350  rm njlytal
+  351  cp mouse.fa ~/home/u28/njlytal
+  352  man cp
+  353  cp mouse.fa /home/u28/njlytal
+  354  cd ..
+  355  ls
+  356  mkdir testdir
+  357  ls
+  358  rm -r testdir
+  359  ls
+  360  history
+  361  history > history.txt
+  362  ls
+  363  man scp
+  364  scp njlytal@login.hpc.arizona.edu:unixBasics.history.txt /Users/Nick/Desktop
+  365  ls
+  366  scp njlytal@login.hpc.arizona.edu:/home/u28/njlytal/unixBasics.history.txt /Users/Nick/Desktop
+  367  ls
+  368  scp njlytal@login.hpc.arizona.edu:unixBasics.history.txt ~/Desktop
+  369  scp njlytal@login.hpc.arizona.edu:unixBasics.history.txt /Users/Nick/Desktop
+  370  nano history
+  371  nano history.txt
+  372  nano history.txt | tail -53
+  373  ls
+  374  history.txt | tail -53
+  375  read history.txt | tail -53
+  376  nano history.txt
+  377  ls
+  378  rm unixBasics.history.txt
+  379  history
+  380  history > unixBasics.history.txt
