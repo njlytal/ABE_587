@@ -1,0 +1,7 @@
+7. The difference between single and double quotes is that single quotes contain literal inputs, while double quotes do not.
+
+For example, a statement including the variable:
+
+my $day = Thursday
+
+would simply print $day if written with single quotes and Thursday if written with double quotes.
