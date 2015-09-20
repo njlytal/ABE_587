@@ -19,4 +19,6 @@ if($i + $j == 0){
     die "You can't divide by zero!\n";
 }
 
-say "The percentage is ", $i/($i+$j) * 100, " %.\n";
+my $result = sprintf("%.2f", $i/($i+$j) * 100);
+
+print "The percentage is $result %.\n";
