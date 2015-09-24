@@ -14,20 +14,23 @@ unless(scalar(@ARGV) == 2)
 
 my $one = shift @ARGV;
 my $two = shift @ARGV;
-my $out = 'div_out.txt';
+my $out = 'out.txt';
+my $err = 'err.txt';
+
+open my $out_fh, '>', $out;
+open my $err_fh, '>', $err;
 
 if($one < 0 or $two < 0){
-    die "Only positive numbers, please!\n";
+    print $err_fh "Only positive numbers, please!\n";
+    die
 }
 
 if($two == 0){
-    die "You can't divide by zero!\n";
+    print $err_fh "You can't divide by zero!\n";
+    die
 }
 
 my $div = sprintf("%.2f", $one/$two);
 
-open my $out_fh, '>', $out;
-
 print $out_fh "The result is $div.\n";
 
-# Still need to handle command line redirects
