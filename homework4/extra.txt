@@ -1,0 +1,12 @@
+This provides the answers for the extra credit problem.
+
+a) Printed to STDOUT will be:
+22
+2
+
+b) Contents of myresult.txt:
+120
+1
+39916800
+
+c) "extra.pl" is the finished program.
