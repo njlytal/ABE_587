@@ -18,10 +18,10 @@ say "default sort = @defsort"; # NOT sorted numerically!
 # SORT (NUMERIC)
 
 my @numsort = sort {$a <=> $b}@ARGV;
-say "numeric sort = @numsort";
+say "numeric sort = @numsort"; # It's numeric now!
 
 # SORT (REVERSE NUM)
 
 my @revsort = sort {$b <=> $a}@ARGV;
-say "reverse numerical sort = @revsort";
+say "reverse numerical sort = @revsort"; # Reverse AND numeric
 
