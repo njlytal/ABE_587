@@ -1,36 +1,37 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+
 use strict;
 use warnings;
 use autodie;
 
-unless(@ARGV){
+unless (@ARGV) {
     die "No entry given!\n";
 }
 
-unless(scalar(@ARGV) == 2)
-{
+unless (scalar(@ARGV) == 2) {
     die "Please enter only 2 numbers!\n";
 }
 
 my $one = shift @ARGV;
 my $two = shift @ARGV;
-my $out = 'out.txt';
-my $err = 'err.txt';
+#my $out = 'out.txt';
+#my $err = 'err.txt';
+#
+#open my $out_fh, '>', $out;
+#open my $err_fh, '>', $err;
 
-open my $out_fh, '>', $out;
-open my $err_fh, '>', $err;
-
-if($one < 0 or $two < 0){
-    print $err_fh "Only positive numbers, please!\n";
-    die
+if ($one < 0 or $two < 0) {
+    die "Only positive numbers, please!\n";
 }
 
-if($two == 0){
-    print $err_fh "You can't divide by zero!\n";
-    die
+if ($two == 0) {
+    die "You can't divide by zero!\n";
 }
 
-my $div = sprintf("%.2f", $one/$two);
+my $div = sprintf("%.2f", $one / $two);
 
-print $out_fh "The result is $div.\n";
+print "The result is $div.\n";
 
+__END__
+
+Just print STDERR/STDOUT and let the user sort it out.
