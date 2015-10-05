@@ -23,4 +23,6 @@ while (my $line = <$in_fh>) {
 
 __END__
 
-Half off for not reversing the line or handling both uc/lc text.
+You failed to reverse the line or handle both uc/lc text.
+
+One point off.
