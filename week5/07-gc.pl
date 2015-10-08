@@ -11,8 +11,8 @@ if(!@ARGV) {
 }
 
 for my $seq(@ARGV){
-    my $g = $seq =~ tr/G//;
-    my $c = $seq =~ tr/C//;
+    my $g = $seq =~ tr/Gg//;
+    my $c = $seq =~ tr/Cc//;
     say "-----------------";
     say $seq;
     say "Length: ", length($seq);

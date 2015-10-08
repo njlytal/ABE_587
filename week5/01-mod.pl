@@ -7,17 +7,14 @@ use feature 'say';
 # PROBLEM 1
 
 if(!@ARGV) {
-    say "Please provide a list of numbers.";
+    die "Please provide a list of numbers.";
 }
 
 
-my $length = scalar @ARGV;
-say "Length: $length";
-
-say "*** EVEN NUMBERS ***";
+print "evens = ";
 for my $number(@ARGV){
     if($number%2 == 0){
-        say "$number";
+        print "$number ";
     }
 }
-
+print "\n";
