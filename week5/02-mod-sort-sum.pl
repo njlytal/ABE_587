@@ -7,7 +7,7 @@ use feature 'say';
 # PROBLEM 1
 
 if(!@ARGV) {
-    die "Please provide a list of numbers.";
+    die "Please provide a list of numbers.\n";
 }
 
 
@@ -22,7 +22,11 @@ for my $number(@ARGV){
         $osum = $osum + $number;
     }
 }
-say "---------------";
+#say "---------------";
 say "sum evens = $esum";
 say "sum odds = $osum";
-say "---------------";
+#say "---------------";
+
+__END__
+
+Expected output did not include separator lines.
