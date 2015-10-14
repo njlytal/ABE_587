@@ -47,4 +47,10 @@ $hash{$header}=$seq;
 
 # say Dumper(\%hash);
 
-# NOW get the length of the values and print them with the keys!
+my @sortkeys = sort{ length($hash{$a}) <=> length($hash{$b}) } keys %hash;
+
+foreach my $label (@sortkeys){
+    print "\n";
+    say "$label: ", length($hash{$label});
+}
+
