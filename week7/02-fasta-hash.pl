@@ -5,7 +5,7 @@ use autodie;
 use feature 'say';
 use Data::Dumper;
 
-# PROBLEM 1
+# PROBLEM 2
 
 # All at once method:
 
@@ -16,5 +16,4 @@ my %hash = (
 );
 
 say Dumper(\%hash);
-
 

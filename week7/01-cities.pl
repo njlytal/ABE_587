@@ -10,11 +10,18 @@ use Data::Dumper;
 # All at once method:
 
 my %hash = (
-    Sacramento      => 'CA',
-    Tucson          => 'AZ',
-       
+    'Tucson'        => 'AZ',
+    'Boston'        => 'MA',
+    'Jackson'       => 'MS',
+    'Dixon'         => 'MN',
+    'Denton'        => 'TX',
+    'Cincinnati'    => 'OH',
 );
 
 say Dumper(\%hash);
 
-
+my $num = 1;
+foreach my $city (sort keys %hash){
+    say $num, ": $city, ",  $hash{$city}; 
+    $num++;
+}
