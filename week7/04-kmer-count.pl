@@ -13,20 +13,12 @@ use Data::Dumper;
 # If no argument: "Please provide a sequence"
 # If you read in a file and its length is 0: "Zero-length sequence."
 
-if(!@ARGV){
-    say "Please provide a sequence."
+my $seq    = shift or die "No file\n";
+my $length = shift || 3; # Define a default length value
+
+if (-e $seq) {
+    open my $fh, '<', $seq;
+    $seq = join '', <$fh>;
 }
 
-
-
-
-shift @ARGV;
-
-open my $fh '<', $file;
-
-my %hash;
-
-while (my $lines = <$fh>){
-    chomp $line;
-    my ($key, $value) = split
-
+say "seq ($seq)";
