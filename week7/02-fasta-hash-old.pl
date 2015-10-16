@@ -18,30 +18,39 @@ open my $fh,'<', $file;
 
 my %hash;
 
-my $last_id;
+my $seq;
+my $counter;
+my $header;
+
 
 while (my $line = <$fh>){
     chomp $line;
 
     # If it's a header with ">"
     if($line  =~ /^>(.*)/){
-        $last_id = $line;
-        $hash{$last_id} = 0;
-    }
-    # Other cases must be part of a sequence
-    else{
-        $hash{$last_id} += length($line);
-    }
+        if($seq) {
+            $hash{$header}=$seq;
+        }
 
+        $header = $1;
+        $counter++;
+        
+        #Sequence resets
+        $seq = '';
+    }
+    else{
+        $seq.=$line;
+    }
 }
 
-#say Dumper(\%hash);
+$hash{$header}=$seq;
 
-my @sortkeys = sort{ $hash{$a} <=> $hash{$b} } keys %hash;
+# say Dumper(\%hash);
+
+my @sortkeys = sort{ length($hash{$a}) <=> length($hash{$b}) } keys %hash;
 
 foreach my $label (@sortkeys){
     print "\n";
-    say "$label: ", $hash{$label};
+    say "$label: ", length($hash{$label});
 }
-print "\n";
 
