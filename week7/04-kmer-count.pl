@@ -7,11 +7,13 @@ use Data::Dumper;
 
 # PROBLEM 4
 
-
-# Pseudocode:
-# First check the length of the file/sequence
-# If no argument: "Please provide a sequence"
-# If you read in a file and its length is 0: "Zero-length sequence."
+### OPENING THE FILE ###
+# Consider all possible cases
+#   No sequence
+#   If kmer length is provided, use it instead of 3 
+#   sequence is a file--read and convert to a string
+#   Empty sequence
+#   sequence length under 3
 
 my $seq    = shift or die "Please provide a sequence.\n";
 my $length = shift || 3; # Define a default length value
@@ -21,24 +23,29 @@ if (-e $seq) {
     $seq = join '', <$fh>;
 }
 
+my $seq_length = length($seq);
+
 if (length($seq) == 0){
     die "Zero-length sequence."
 }
 
-if (length($seq) < 3){
-    die "Cannot get any 3 mers from a sequence of length ", length($seq);
+my $num_possible = $seq_length-$length+1;
+
+
+if ($num_possible < 1) {
+    die "Cannot get any $length mers from a sequence of length $seq_length\n";
 }
 
 # At this point, $seq should contain the actual sequence to test
 # say "seq ($seq)";
 
-# READING THE KMERS
+### READING THE KMERS ###
 
+# Hash for all the kmers & their counts
 my %mers;
 
-# Start at position 0, advance until k before last character
-
-for(my $pos=0; $pos <= length($seq)-$length; $pos++)
+# Start at position 0, advance in groups of kmer length until last possible kmer is read
+for (my $pos=0; $pos < $num_possible; $pos++)
 {
     my $kmer = substr($seq, $pos, $length);
     
@@ -46,6 +53,7 @@ for(my $pos=0; $pos <= length($seq)-$length; $pos++)
     if(exists $mers{$kmer}){
         $mers{$kmer}++;
     }
+
     # Otherwise initialize a new kmer name with a single count
     else{
         $mers{$kmer} = 1;
@@ -53,45 +61,52 @@ for(my $pos=0; $pos <= length($seq)-$length; $pos++)
 
 }
 
-my $singles = 0;
+my $singles = scalar(grep { $_ == 1 } values %mers);
 
-# SINGLETON COUNTER
-foreach my $key (keys %mers)
-{
-    if($mers{$key} == 1){
-        $singles++;
-    }
-}
-
-
+#my $singles = 0;
+#
+## SINGLETON COUNTER
+#foreach my $key (keys %mers)
+#{
+#    if($mers{$key} == 1){
+#        $singles++;
+#    }
+#}
 
 # say Dumper(\%mers);
 
 # say $seq;
 
-# INFORMATION ABOUT THE SEQUENCE
+###  INFORMATION ABOUT THE SEQUENCE  ###
 
-printf("%-15s %10s\n", "Sequence length", length($seq));
+# SEQUENCE LENGTH
+my $fmt = "%-15s %10s\n";
+printf $fmt, "Sequence length", $seq_length;
+
 # MER SIZE
-
-printf("%-15s %10s\n", "Mer size", $length);
+printf $fmt, "Mer size", $length;
 
 # NUMBER OF POSSIBLE KMERS
-printf("%-15s %10s\n", "Number of kmers", length($seq) - $length + 1);
+printf $fmt, "Number of kmers", $num_possible;
 
 # NUMBER UNIQUE KMERS (i.e. Number of keys)
-printf("%-15s %10s\n", "Unique kmers", scalar(keys %mers));
+my $num_unique = scalar(keys %mers);
+printf $fmt, "Unique kmers", $num_unique;
 
 # NUMBER OF SINGLETONS (i.e. Keys with a value of 1)
-printf("%-15s %10s\n", "Num. singletons", $singles);
+printf $fmt, "Num. singletons", $singles;
 
+exit if $singles == $num_unique;
 
 # If at least 10 kmers exist...
-if( scalar(keys %mers) >= 10){
-    my @sortkeys = sort {$mers{$b} <=> $mers{$a} || $a cmp $b } keys %mers;
-    
-    say "Most abundant";
-    for( my $i=0; $i <= 9; $i++){
-        say $sortkeys[$i], ": ", $mers{$sortkeys[$i]};
-    }
+say "Most abundant";
+
+my $abun_count = 0;
+for my $kmer (
+    sort {$mers{$b} <=> $mers{$a} || $a cmp $b } keys %mers
+) {
+    my $count = $mers{$kmer};
+    last if $count == 1;
+    say "$kmer: $count";
+    last if ++$abun_count == 10;
 }

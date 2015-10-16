@@ -7,12 +7,7 @@ use Data::Dumper;
 
 # PROBLEM 2
 
-if(!@ARGV){
-    @ARGV = "Perl_V.genesAndSeq.txt";
-}
-
-my $file = shift @ARGV;
-
+my $file = shift || 'Perl_V.genesAndSeq.txt';
 
 open my $fh,'<', $file;
 
@@ -25,7 +20,7 @@ while (my $line = <$fh>){
 
     # If it's a header with ">"
     if($line  =~ /^>(.*)/){
-        $last_id = $line;
+        $last_id = $1;
         $hash{$last_id} = 0;
     }
     # Other cases must be part of a sequence
@@ -37,11 +32,7 @@ while (my $line = <$fh>){
 
 #say Dumper(\%hash);
 
-my @sortkeys = sort{ $hash{$a} <=> $hash{$b} } keys %hash;
-
-foreach my $label (@sortkeys){
-    print "\n";
-    say "$label: ", $hash{$label};
+foreach my $label ( sort{ $hash{$a} <=> $hash{$b} } keys %hash ) {
+    say "$label: $hash{$label}";
 }
-print "\n";
 
