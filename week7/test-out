@@ -1,0 +1,12 @@
+ok 1 - 02-fasta-hash.pl
+ok 2 - 02-fasta-hash.pl test.fa
+ok 3 - 03-common-words.pl
+ok 4 - 03-common-words.pl fox-in-socks.txt green-eggs.txt
+ok 5 - 04-kmer-count.pl
+ok 6 - 04-kmer-count.pl A
+ok 7 - 04-kmer-count.pl AAA
+ok 8 - 04-kmer-count.pl TTTGATACTCCTATTAAGTAA 2
+ok 9 - 04-kmer-count.pl mouse.fa 8
+1..9
+The plan was already output at /usr/local/lib/perl5/5.22.0/Test/Builder.pm line 2510.
+1..9
