@@ -10,22 +10,25 @@ use feature 'say';
 # 3. Use regex to remove spaces
 # 4. Compare base string with its reverse
 # 5. If equal: yes! If not: no! 
+### EXTRA STEPS - Pt 2 ###
+# 6. Use regex to remove extra punctuation
 
 # Read in statement & remove caps
 my $line = lc(shift @ARGV);
 
-# Use regex to remove spaces
-$line =~ s/\s+//g;
+# Use regex to remove non-word characters
+# Originally: s/\s+//g in prob 1
+$line =~ s/\W+//g;
 
 my $revline = scalar reverse($line);
 
 say "$line vs $revline:";
 
-if($line cmp $revline)
+if($line eq $revline)
 {   
-    say "no!";
+    say "yes!";
 }
 else
 {
-    say "yes!";
+    say "no!";
 }
