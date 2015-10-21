@@ -13,6 +13,11 @@ use feature 'say';
 ### EXTRA STEPS - Pt 2 ###
 # 6. Use regex to remove extra punctuation
 
+unless(@ARGV)
+{
+    die "Please provide a word or phrase.\n";
+}
+
 # Read in statement & remove caps
 my $line = lc(shift @ARGV);
 
@@ -22,13 +27,13 @@ $line =~ s/\W+//g;
 
 my $revline = scalar reverse($line);
 
-say "$line vs $revline:";
+# say "$line vs $revline:";
 
 if($line eq $revline)
 {   
-    say "yes!";
+    say "Yes";
 }
 else
 {
-    say "no!";
+    say "No";
 }
