@@ -28,6 +28,15 @@ sub main {
         });
     }; 
    
+    if($args{'program'} && !$args{'argument'})
+    {
+        die "Missing argument\n";
+    }
+    if(!$args{'program'} && $args{'argument'})
+    {
+        die "Missing program\n";
+    }
+
     if($args{'program'} && $args{'argument'})
     {
         my $prog = shift @ARGV;
@@ -53,7 +62,7 @@ sub main {
 # --------------------------------------------------
 sub hello {
     my $name = shift;
-    say "Hello, $name.";
+    say "Hello, $name";
 
     return;
 }
