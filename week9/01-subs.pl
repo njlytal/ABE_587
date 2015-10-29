@@ -8,6 +8,12 @@ use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
 
+#PSEUDOCODE
+# If -p hello, then engage hello subroutine on -a
+# If -p rc, then engage reverse complement subroutine on -a 
+
+
+
 main();
 
 
@@ -21,9 +27,26 @@ sub main {
             -verbose => $args{'man_page'} ? 2 : 1
         });
     }; 
-
-    say "OK";
-    hello(@ARGV);
+   
+    if($args{'program'} && $args{'argument'})
+    {
+        my $prog = shift @ARGV;
+        my $arg = shift @ARGV;
+        
+        if($prog eq 'hello')
+        {
+            hello($arg);
+        }
+        elsif($prog eq 'rc')
+        {
+            rc($arg);
+        }
+        else
+        {
+            die "Invalid program name.\n";
+        }
+    }
+    # say "OK";
 }
 
 
@@ -37,12 +60,22 @@ sub hello {
 
 
 # --------------------------------------------------
+sub rc{
+    my $line = shift;
+    $line =~ tr/ACGTacgt/TGCAtgca/;
+    $line = reverse($line);
+    print $line, "\n";
+}
+
+# --------------------------------------------------
 sub get_args {
     my %args;
     GetOptions(
         \%args,
         'help',
         'man',
+        'program',
+        'argument',
     ) or pod2usage(2);
 
     return %args;
@@ -57,7 +90,7 @@ __END__
 # --------------------------------------------------
 
 =pod
-:w
+#:w
 
 =head1 NAME
 
@@ -65,17 +98,20 @@ __END__
 
 =head1 SYNOPSIS
 
-  01-subs.pl 
+  01-subs.pl -p hello -a Tucson
+
+  01-subs.pl -p rc -a GAGAGAGAGTTTTTTTTT
 
 Options:
 
-  --help   Show brief help and exit
-  --man    Show full documentation
+  --program     The thing to do
+  --argument    The argument to the thing
+  --help        Show brief help and exit
+  --man         Show full documentation
 
 =head1 DESCRIPTION
 
-Describe what the script does, what input it expects, what output it
-creates, etc.
+Either print "hello <something>" or the reverse-complement of something.
 
 =head1 SEE ALSO
 
