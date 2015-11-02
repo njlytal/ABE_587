@@ -7,13 +7,13 @@ use feature 'say';
 # PROBLEM 6
 
 if(!@ARGV) {
-    die "Please provide a list of sequences.";
+    die "Please provide a list of sequences.\n";
 }
 
 # NOTES: Do we include the list in here or only use the command line?
 
 my @sizesort = sort {length($a) <=> length($b)}(@ARGV);
-say "sorted = ", join (",", @sizesort);
+say "sorted = ", join (", ", @sizesort);
 
 my @revsort = sort {length($b) <=> length($a)}(@ARGV);
-say "reverse = ", join (",", @revsort);
+say "reverse = ", join (", ", @revsort);

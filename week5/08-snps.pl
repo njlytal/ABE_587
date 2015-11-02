@@ -21,7 +21,7 @@ my $count = 0;
 
 for(my $i=0; $i<scalar @seq1; $i++){
     if($seq1[$i] cmp $seq2[$i]){
-        say "Pos ", $i+1, ": ", $seq1[$i], "=>", $seq2[$i];
+        say "Pos ", $i+1, ": ", $seq1[$i], " => ", $seq2[$i];
         $count++;
     }
 

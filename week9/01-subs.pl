@@ -82,7 +82,6 @@ __END__
 # --------------------------------------------------
 
 =pod
-#:w
 
 =head1 NAME
 
@@ -111,7 +110,7 @@ perl.
 
 =head1 AUTHOR
 
-NICHOLAS LYTAL E<lt>Nick@email.arizona.eduE<gt>.
+NICHOLAS LYTAL E<lt>njlytal@email.arizona.eduE<gt>.
 
 =head1 COPYRIGHT
 
