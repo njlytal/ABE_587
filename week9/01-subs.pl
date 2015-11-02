@@ -28,36 +28,19 @@ sub main {
         });
     }; 
    
-    if($args{'program'} && !$args{'argument'})
-    {
-        die "Missing argument\n";
-    }
-    if(!$args{'program'} && $args{'argument'})
-    {
-        die "Missing program\n";
-    }
+    my $program = $args{'program'} or pod2usage("Missing argument");
+    my $argument = $args{'argument'} or pod2usage("Missing argument");
 
-    if($args{'program'} && $args{'argument'})
-    {
-        my $prog = shift @ARGV;
-        my $arg = shift @ARGV;
-        
-        if($prog eq 'hello')
-        {
-            hello($arg);
-        }
-        elsif($prog eq 'rc')
-        {
-            rc($arg);
-        }
-        else
-        {
-            die "Invalid program name.\n";
-        }
+    if ($program eq 'hello') {
+        hello($argument);
     }
-    # say "OK";
+    elsif ($program eq 'rc') {
+        rc($argument);
+    }
+    else {
+        die "Invalid program name.\n";
+    }
 }
-
 
 # --------------------------------------------------
 sub hello {
@@ -83,8 +66,8 @@ sub get_args {
         \%args,
         'help',
         'man',
-        'program',
-        'argument',
+        'program=s',
+        'argument=s',
     ) or pod2usage(2);
 
     return %args;
