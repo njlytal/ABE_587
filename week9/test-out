@@ -1,0 +1,18 @@
+not ok 1 - 01-subs.pl -a World! -p hello
+#   Failed test '01-subs.pl -a World! -p hello'
+#   at /usr/local/lib/perl5/site_perl/5.20.0/Test/Script/Run.pm line 258.
+#          got: '2'
+#     expected: '0'
+# Different in line: 1: got Invalid program name.
+# got nothing, expected: Hello, World!
+not ok 2 - 01-subs.pl --argument GAGAGAGAGAGTTTTTTTTT --program rc
+#   Failed test '01-subs.pl --argument GAGAGAGAGAGTTTTTTTTT --program rc'
+#   at /usr/local/lib/perl5/site_perl/5.20.0/Test/Script/Run.pm line 258.
+#          got: '2'
+#     expected: '0'
+# Different in line: 1: got Invalid program name.
+# got nothing, expected: AAAAAAAAACTCTCTCTCTC
+1..2
+The plan was already output at /usr/local/lib/perl5/site_perl/5.20.0/Test/Builder.pm line 2510.
+1..2
+# Looks like you failed 2 tests of 2.
