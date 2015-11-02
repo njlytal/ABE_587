@@ -15,14 +15,13 @@ my %kegg = ();
 
 my $file_ct = @ARGV;
 
-say "Files: $file1, $file2, $file3, $file4";
-
 # Non-subroutine version as a fail-safe
 open my $fh1, "<", $file1;
 open my $fh2, "<", $file2;
 open my $fh3, "<", $file3;
 open my $fh4, "<", $file4;
 
+# For outputting to txt files
 open my $out_fh1, ">>", $out1;
 open my $out_fh2, ">>", $out2;
 
@@ -38,7 +37,6 @@ while(my $line = <$fh1>)
     
 }
 
-
 while(my $line = <$fh2>)
 {   
     chomp($line);
@@ -50,7 +48,6 @@ while(my $line = <$fh2>)
     }
 }
 
-
 while(my $line = <$fh3>)
 {   
     chomp($line);
@@ -59,10 +56,8 @@ while(my $line = <$fh3>)
     {
         $kegg{$k}++;
         say "$k occurs $ct times";
-    }
-    
+    }   
 }
-
 
 while(my $line = <$fh4>)
 {   
@@ -86,5 +81,5 @@ for my $key (keys %kegg){
         say $out_fh2 $key;
     }
 }
-say Dumper(\%kegg);
+# say Dumper(\%kegg);
 
