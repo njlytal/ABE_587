@@ -6,6 +6,11 @@ use autodie;
 use feature 'say';
 use Getopt::Long;
 use Pod::Usage;
+use Bio::SeqIO;
+use Cwd 'cwd';
+use File::Spec::Functions 'catfile';
+use File::Basename 'basename';
+use File::Path 'make_path';
 
 main();
 
@@ -19,15 +24,37 @@ sub main {
             -verbose => $args{'man_page'} ? 2 : 1
         });
     }; 
+    
+    my $number = $args{'number'} || 500;
+    my $out_dir = $args{'out_dir'} || cwd;
+    my $file = shift @ARGV;
+   # $seq = Bio::SeqIO->new(
+   #             -file => $file,
+   #             -format => 'fasta');
+    
+    #split($number, $out_dir);
 
+    say "$number, $out_dir, $file";
     say "OK";
 }
 
 # --------------------------------------------------
+#sub split {
+#
+#
+#
+#    return; # Should return a list of split files
+#}
+
+
+# --------------------------------------------------
+
 sub get_args {
     my %args;
     GetOptions(
         \%args,
+        'number=s',
+        'out_dir=s',
         'help',
         'man',
     ) or pod2usage(2);
@@ -42,17 +69,18 @@ __END__
 =pod
 
 =head1 NAME
-
-01-fasta-splitter.pl - a script
+Usage:
+    01-fasta-splitter.pl -n 20 -o ~/split file1.fa [file2.fa ...]
 
 =head1 SYNOPSIS
 
   01-fasta-splitter.pl 
 
-Options:
-
-  --help   Show brief help and exit
-  --man    Show full documentation
+Options (defaults in parentheses):
+  --number  The maximum number of sequences per file (500)
+  --out_dir Output directory (cwd)
+  --help    Show brief help and exit
+  --man     Show full documentation
 
 =head1 DESCRIPTION
 
