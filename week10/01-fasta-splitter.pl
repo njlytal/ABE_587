@@ -12,6 +12,33 @@ use File::Spec::Functions 'catfile';
 use File::Basename 'basename';
 use File::Path 'make_path';
 
+# PSEUDOCODE
+
+# Read in: number of lines to split on, output dir., file(s)
+# Correctly read in the command line arguments
+# Create a new directory to house the split files
+# Create a SeqIO object to hold the fasta for operations
+# 
+
+# Split portion
+# Use regex to find '>' and only continue until $number are found
+# 
+
+
+# MODULE NOTES
+# cwd:  Lets you obtain current working directory from within a script
+
+# make_path: Lets you create a new directory from within a script
+
+# catfile: concatenates 1+ directory names & a filename to form a complete path
+#          ending with a filename
+#   e.g. $path = File::Spec->catfile(@directories, $filename);
+#   USES: Gives an exact location to output the split fasta files
+
+# basename: returns last level of a filepath
+#   e.g. basename("/foo/bar/") returns bar
+#   USES: Combine with catfile to create the filepaths
+
 main();
 
 # --------------------------------------------------
@@ -25,16 +52,27 @@ sub main {
         });
     }; 
     
+    # Read command line inputs
     my $number = $args{'number'} || 500;
     my $out_dir = $args{'out_dir'} || cwd;
     my $file = shift @ARGV;
-   # $seq = Bio::SeqIO->new(
-   #             -file => $file,
-   #             -format => 'fasta');
-    
+
+    # Create SeqIO Object
+#    my $seq = Bio::SeqIO->new(
+#                -file => $file,
+#                -format => 'fasta');
+   
+    # Use File::Path to make a new directory
+    # make_path($out_dir);
+
+    # Create Seq Object for output
+    #my $out_seq = Bio::SeqIO->new(
+
+    # Run subroutine to split up files
     #split($number, $out_dir);
 
-    say "$number, $out_dir, $file";
+    # Basic input tester
+    #say "$number, $out_dir, $file";
     say "OK";
 }
 
@@ -53,7 +91,7 @@ sub get_args {
     my %args;
     GetOptions(
         \%args,
-        'number=s',
+        'number=i',
         'out_dir=s',
         'help',
         'man',
