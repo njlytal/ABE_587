@@ -9,7 +9,7 @@ use Pod::Usage;
 use Bio::SeqIO;
 use Cwd 'cwd';
 use File::Spec::Functions 'catfile';
-use File::Basename 'basename';
+use File::Basename;
 use File::Path 'make_path';
 
 # PSEUDOCODE
@@ -55,34 +55,66 @@ sub main {
     # Read command line inputs
     my $number = $args{'number'} || 500;
     my $out_dir = $args{'out_dir'} || cwd;
-    my $file = shift @ARGV;
+    my $file = shift @ARGV; # CHANGE this to allow multiple files
 
-    # Create SeqIO Object
-#    my $seq = Bio::SeqIO->new(
-#                -file => $file,
-#                -format => 'fasta');
    
-    # Use File::Path to make a new directory
-    # make_path($out_dir);
-
-    # Create Seq Object for output
-    #my $out_seq = Bio::SeqIO->new(
+    # Use File::Path to make a new directory if it doesn't already exist
+    unless(-d $out_dir){
+         make_path($out_dir);
+    }
 
     # Run subroutine to split up files
-    #split($number, $out_dir);
+    # NOTE: Need a loop to run ALL files in the array if >1!
+    splitter($number, $out_dir, $file);
 
     # Basic input tester
-    #say "$number, $out_dir, $file";
+    say "$number, $out_dir, $file";
     say "OK";
+
 }
 
 # --------------------------------------------------
-#sub split {
-#
-#
-#
-#    return; # Should return a list of split files
-#}
+sub splitter {
+
+    # Import variables into subroutine
+    my ($number, $out_dir, $file) = @_;
+    
+    # Create SeqIO Object
+    my $in_seqIO = Bio::SeqIO->new(
+                    -file => $file,
+                    -format => 'fasta');
+    
+    #$out_seqIO_obj->write_seq($seqObj);    
+
+    # Define how many times to run this loop
+        
+
+    say "$file, $out_dir";
+
+    my $filenum = 1;
+
+    # Define filepath for output
+    my $newfile = join("", basename($file), ".", $filenum);
+
+    my $path = catfile($out_dir, $newfile);
+
+    say "New file name is $newfile, new path is $path";
+
+    for(my $i=1; $i<=$number; $i++){
+        my $out_seqIO = Bio::SeqIO->new(-format => 'fasta');
+
+        $out_seqIO = $in_seqIO->next_seq(); # Read next sequence
+        $out_seqIO>>$path;    
+
+
+    }
+
+    #while (my $seq = $in_seqIO->next_seq()){
+    #    print "Sequence",$seq->id, " first 10 bases ",
+    #        $seq->subseq(1,10), "\n";
+    #}
+    return;
+}
 
 
 # --------------------------------------------------
