@@ -124,8 +124,9 @@ Options (defaults in parentheses):
 
 =head1 DESCRIPTION
 
-Describe what the script does, what input it expects, what output it
-creates, etc.
+This script takes in a fasta file and splits it into several pieces.
+Each piece has the specified number of lines (default 500), and is
+automatically placed into the designated directory (default to current one).
 
 =head1 SEE ALSO
 

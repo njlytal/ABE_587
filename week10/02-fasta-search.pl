@@ -8,6 +8,7 @@ use Getopt::Long;
 use Pod::Usage;
 use Bio::SeqIO;
 use Bio::DB::Fasta;
+use Data::Dumper;
 
 
 
@@ -35,20 +36,53 @@ sub main {
         });
     }; 
     
-    my $file = shift;
-    my $regex = shift;
+    my ($file, $regex) = @ARGV;
 
-    # Use search subroutine to locate pattern
-    #search($file, $regex);
+    # Create a hash to store ID matches & counts
+    my %matches;
 
-    say "OK";
+    # Record number of matches in the file
+    my $nummatch = 0;
+
+    # FILE READER - (just reading the one file)
+    for $file(shift @ARGV){
+        # Create a DB object to read in IDs
+        my $reader = Bio::DB::Fasta->new("$file");
+        
+        my @ids = $reader->get_all_primary_ids;
+
+        my $match; # Variable to record a matched ID
+
+        my $filename = $regex;
+        $filename =~ s/\W//g;
+        $filename = join("", $filename, ".fa");
+        
+        my $out = Bio::SeqIO->new(-file => ">>$filename", -format => 'fasta');
+
+        say "Searching '$file' for '$regex'";
+
+        # Now read through the array using regex to spot matches
+        for(my $i = 0; $i < scalar(@ids); $i++){
+            my $read = $ids[$i];
+            #say "Reading line $i";
+            if($read =~ /$regex/){
+                $match = $read;
+                my $seq = $reader->get_Seq_by_id($read);
+                $out->write_seq($seq);
+                $matches{$match} = 1;
+                $nummatch++;
+            }
+        
+
+        }
+        
+        # Closing text statements
+        say "Found $nummatch ids";
+        unless($nummatch == 0){
+        say "See results in '$filename'";
+        }
+    }
 }
-
-# --------------------------------------------------
-#sub search {
-#    return;
-#}
-
 
 # --------------------------------------------------
 
@@ -71,7 +105,7 @@ __END__
 
 =head1 NAME
 
-02-fasta-search.pl - a script
+02-fasta-search.pl file.fa pattern
 
 =head1 SYNOPSIS
 
