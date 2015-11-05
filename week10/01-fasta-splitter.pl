@@ -12,33 +12,6 @@ use File::Spec::Functions 'catfile';
 use File::Basename;
 use File::Path 'make_path';
 
-# PSEUDOCODE
-
-# Read in: number of lines to split on, output dir., file(s)
-# Correctly read in the command line arguments
-# Create a new directory to house the split files
-# Create a SeqIO object to hold the fasta for operations
-# 
-
-# Split portion
-# Use regex to find '>' and only continue until $number are found
-# 
-
-
-# MODULE NOTES
-# cwd:  Lets you obtain current working directory from within a script
-
-# make_path: Lets you create a new directory from within a script
-
-# catfile: concatenates 1+ directory names & a filename to form a complete path
-#          ending with a filename
-#   e.g. $path = File::Spec->catfile(@directories, $filename);
-#   USES: Gives an exact location to output the split fasta files
-
-# basename: returns last level of a filepath
-#   e.g. basename("/foo/bar/") returns bar
-#   USES: Combine with catfile to create the filepaths
-
 main();
 
 # --------------------------------------------------
@@ -62,19 +35,17 @@ sub main {
     }
 
     # Basic input tester
-    say "$number, $out_dir";
-    say "OK";
+    # say "$number, $out_dir";
+    # say "OK";
 
 
     # FILE READER
     for my $file (@ARGV){
-        say $file;          #Status check
-        
         # Create a SeqIO object to read in data
         my $reader = Bio::SeqIO->new(-file =>$file, -format => 'fasta');
         my $count = 0;  # Keep track of line being read.
 
-        my $filenum = 1; # Number of the current file split
+        my $filenum = 1; # Defines number of the current file split
         
         # Define filepath for first file split
         my $path = filepath($file, $out_dir, $filenum);
@@ -88,11 +59,8 @@ sub main {
             # Write the current line to the proper file
             $out->write_seq($seq);
 
-            #say $count, ": ", $seq->seq;    # Print line number and ID
-
-            # After $number lines, cut the fasta file off & write it out
+            # After $number lines, cut the fasta file off & ready a new path
             if($count%$number == 0){
-                say "CUT";
                 $filenum++;
 
                 # Redefine filepath for next file split
@@ -103,10 +71,6 @@ sub main {
     }      
 
 }
-#    #$out = Bio::SeqIO->new( -file => ">$path", -format => 'fasta')
-#    $out->write_seq($seq);
-
-
 
 # --------------------------------------------------
 sub filepath{
@@ -116,7 +80,8 @@ sub filepath{
 
     my $path = catfile($out_dir, $newfile);
 
-    say "New file name is $newfile, new path is $path";
+    # Confirm correct filename
+    # say "New file name is $newfile, new path is $path";
     return $path;
 }
 
