@@ -55,67 +55,72 @@ sub main {
     # Read command line inputs
     my $number = $args{'number'} || 500;
     my $out_dir = $args{'out_dir'} || cwd;
-    my $file = shift @ARGV; # CHANGE this to allow multiple files
 
-   
     # Use File::Path to make a new directory if it doesn't already exist
     unless(-d $out_dir){
          make_path($out_dir);
     }
 
-    # Run subroutine to split up files
-    # NOTE: Need a loop to run ALL files in the array if >1!
-    splitter($number, $out_dir, $file);
-
     # Basic input tester
-    say "$number, $out_dir, $file";
+    say "$number, $out_dir";
     say "OK";
 
+
+    # FILE READER
+    for my $file (@ARGV){
+        say $file;          #Status check
+        
+        # Create a SeqIO object to read in data
+        my $reader = Bio::SeqIO->new(-file =>$file, -format => 'fasta');
+        my $count = 0;  # Keep track of line being read.
+
+        my $filenum = 1; # Number of the current file split
+        
+        # Define filepath for first file split
+        my $path = filepath($file, $out_dir, $filenum);
+
+        while(my $seq = $reader->next_seq){
+            $count++;
+
+            # define output object            
+            my $out = Bio::SeqIO->new(-file => ">>$path", -format => 'fasta');
+            
+            # Write the current line to the proper file
+            $out->write_seq($seq);
+
+            #say $count, ": ", $seq->seq;    # Print line number and ID
+
+            # After $number lines, cut the fasta file off & write it out
+            if($count%$number == 0){
+                say "CUT";
+                $filenum++;
+
+                # Redefine filepath for next file split
+                $path = filepath($file, $out_dir, $filenum);
+            }
+        }
+
+    }      
+
 }
+#    #$out = Bio::SeqIO->new( -file => ">$path", -format => 'fasta')
+#    $out->write_seq($seq);
+
+
 
 # --------------------------------------------------
-sub splitter {
-
-    # Import variables into subroutine
-    my ($number, $out_dir, $file) = @_;
-    
-    # Create SeqIO Object
-    my $in_seqIO = Bio::SeqIO->new(
-                    -file => $file,
-                    -format => 'fasta');
-    
-    #$out_seqIO_obj->write_seq($seqObj);    
-
-    # Define how many times to run this loop
-        
-
-    say "$file, $out_dir";
-
-    my $filenum = 1;
-
-    # Define filepath for output
+sub filepath{
+    # FILEPATH - Define current filepath
+    my ($file, $out_dir, $filenum) = @_;
     my $newfile = join("", basename($file), ".", $filenum);
 
     my $path = catfile($out_dir, $newfile);
 
     say "New file name is $newfile, new path is $path";
-
-    for(my $i=1; $i<=$number; $i++){
-        my $out_seqIO = Bio::SeqIO->new(-format => 'fasta');
-
-        $out_seqIO = $in_seqIO->next_seq(); # Read next sequence
-        $out_seqIO>>$path;    
-
-
-    }
-
-    #while (my $seq = $in_seqIO->next_seq()){
-    #    print "Sequence",$seq->id, " first 10 bases ",
-    #        $seq->subseq(1,10), "\n";
-    #}
-    return;
+    return $path;
 }
 
+   
 
 # --------------------------------------------------
 
