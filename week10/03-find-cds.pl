@@ -37,7 +37,7 @@ sub main {
         my $reader = Bio::SeqIO->new(-file => $file, -format => 'genbank');  
         
         # Need a variable for the accession name
-        #my $access = $reader->accession_number;
+        my $access;
 
         # Array of CDS found
         my @cds;
@@ -47,7 +47,7 @@ sub main {
         # Accesses tags to isolate CDS
         while(my $seqObj = $reader -> next_seq){
             my $name = $seqObj -> id;
-            
+            $access = $seqObj->accession_number;
             for my $feature_obj ($seqObj->get_SeqFeatures){
                 my $primary_tag = $feature_obj->primary_tag;
 
@@ -68,7 +68,7 @@ sub main {
 
         }        
         # Closing Statement
-        say "$file has $cdcount CDS"; # Should be using $access if it worked
+        say "$access has $cdcount CDS"; # Should be using $access if it worked
         for(my $i = 0; $i<$cdcount; $i++){
             say $i+1, ": ", $cds[$i];
         }
