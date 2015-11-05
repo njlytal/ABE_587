@@ -27,15 +27,51 @@ sub main {
         });
     }; 
 
-    say "OK";
+    unless(@ARGV){
+        die "Please enter file(s) to search for CDS.\n";
+    }
 
     # FILE READER
     for my $file (@ARGV){
-    
+        # Create object to read in data
+        my $reader = Bio::SeqIO->new(-file => $file, -format => 'genbank');  
+        
+        # Need a variable for the accession name
+        #my $access = $reader->accession_number;
 
+        # Array of CDS found
+        my @cds;
 
+        my $cdcount = 0;
 
+        # Accesses tags to isolate CDS
+        while(my $seqObj = $reader -> next_seq){
+            my $name = $seqObj -> id;
+            
+            for my $feature_obj ($seqObj->get_SeqFeatures){
+                my $primary_tag = $feature_obj->primary_tag;
 
+                my ($start,$end) = ($feature_obj->start, $feature_obj->end);
+                my $range = $start .".." . $end;
+
+                for my $tag (sort $feature_obj->get_all_tags){
+                    my @values = $feature_obj->get_tag_values($tag);
+                    my $value_str = join(",", @values);
+
+                    if($primary_tag eq "CDS" && $tag eq "translation"){
+                        $cds[$cdcount] = $value_str;
+                        $cdcount++;
+                    }
+
+                }
+            }
+
+        }        
+        # Closing Statement
+        say "$file has $cdcount CDS"; # Should be using $access if it worked
+        for(my $i = 0; $i<$cdcount; $i++){
+            say $i+1, ": ", $cds[$i];
+        }
     }
 
 }
