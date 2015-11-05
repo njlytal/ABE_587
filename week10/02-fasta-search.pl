@@ -105,11 +105,12 @@ __END__
 
 =head1 NAME
 
-02-fasta-search.pl file.fa pattern
+Usage:
+    02-fasta-search.pl file.fa pattern
 
 =head1 SYNOPSIS
-
-  02-fasta-search.pl 
+ 
+ 02-fasta-search.pl
 
 Options:
 

@@ -25,6 +25,10 @@ sub main {
         });
     }; 
     
+    unless(@ARGV){
+        die "Please select a file to split.\n";
+    }
+
     # Read command line inputs
     my $number = $args{'number'} || 500;
     my $out_dir = $args{'out_dir'} || cwd;

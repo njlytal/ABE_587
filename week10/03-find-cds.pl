@@ -28,6 +28,16 @@ sub main {
     }; 
 
     say "OK";
+
+    # FILE READER
+    for my $file (@ARGV){
+    
+
+
+
+
+    }
+
 }
 
 # --------------------------------------------------
@@ -50,7 +60,7 @@ __END__
 
 =head1 NAME
 
-03-find-cds.pl - a script
+03-find-cds.pl rec.gb [rec2.gb ...]
 
 =head1 SYNOPSIS
 
