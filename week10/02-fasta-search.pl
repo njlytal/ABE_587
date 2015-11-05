@@ -10,19 +10,6 @@ use Bio::SeqIO;
 use Bio::DB::Fasta;
 use Data::Dumper;
 
-
-
-#PSEUDOCODE
-# Read in a file name and regex from command line
-# Create a SeqIO Object to store the fasta file info
-# Create a search subroutine to search for regex inputted
-# Create an output filehandle & filename based on regex (w/o word chars)
-# Within search:
-# * Create an array to store sequence IDs. Length will give # ids.
-# * For each array entry, append a line to a new file
-
-
-
 main();
 
 # --------------------------------------------------
@@ -72,8 +59,6 @@ sub main {
                 $matches{$match} = 1;
                 $nummatch++;
             }
-        
-
         }
         
         # Closing text statements
