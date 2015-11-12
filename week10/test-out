@@ -1,0 +1,41 @@
+1..25
+ok 1 - /Users/kyclark/work/students/njlytal/week10/01-fasta-splitter.pl
+ok 2 - /Users/kyclark/work/students/njlytal/week10/01-fasta-splitter.pl -n 10 -o /var/folders/hr/9s3kbq2x46nfp6kbdn99s63r0000gp/T/50rJ1AXEug/split /Users/kyclark/work/abe487/lab/tester/data/week10/test.fa /Users/kyclark/work/abe487/lab/tester/data/week10/test2.fa
+ok 3 - /var/folders/hr/9s3kbq2x46nfp6kbdn99s63r0000gp/T/50rJ1AXEug/split was created
+ok 4 - test.fa.1 exists
+ok 5 - test.fa.1 size = 2384
+ok 6 - nseqs = 10
+ok 7 - test.fa.2 exists
+ok 8 - test.fa.2 size = 2085
+ok 9 - nseqs = 10
+ok 10 - test.fa.3 exists
+ok 11 - test.fa.3 size = 813
+ok 12 - nseqs = 4
+ok 13 - test2.fa.1 exists
+ok 14 - test2.fa.1 size = 2992
+ok 15 - nseqs = 10
+ok 16 - test2.fa.2 exists
+ok 17 - test2.fa.2 size = 41
+ok 18 - nseqs = 1
+ok 19 - /Users/kyclark/work/students/njlytal/week10/02-fasta-search.pl
+ok 20 - /Users/kyclark/work/students/njlytal/week10/02-fasta-search.pl /Users/kyclark/work/abe487/lab/tester/data/week10/uniprot.fa Z_
+ok 21 - outfile (Z_.fa) exists)
+ok 22 - outfile is correct size
+ok 23 - nseqs = 23
+ok 24 - /Users/kyclark/work/students/njlytal/week10/03-find-cds.pl
+not ok 25 - /Users/kyclark/work/students/njlytal/week10/03-find-cds.pl /Users/kyclark/work/abe487/lab/tester/data/week10/ncbi-sample-rec.gb /Users/kyclark/work/abe487/lab/tester/data/week10/sequence.gb
+#   Failed test '/Users/kyclark/work/students/njlytal/week10/03-find-cds.pl /Users/kyclark/work/abe487/lab/tester/data/week10/ncbi-sample-rec.gb /Users/kyclark/work/abe487/lab/tester/data/week10/sequence.gb'
+#   at /usr/local/lib/perl5/site_perl/5.22.0/Test/Script/Run.pm line 258.
+#          got: '8'
+#     expected: '0'
+# Different in line: 1: got ( has 0 CDS), expect (U49845 has 3 CDS)
+# 
+# 2: got ( has 0 CDS), expect (1: SSIYNGISTSGLDLNNGTIADMRQLGIVESYKLKRAVVSSASEAAEVLLRVDNIIRARPRTANRQHM)
+# 
+# 1: got Use of uninitialized value $access in concatenation (.) or string at /Users/kyclark/work/students/njlytal/week10/03-find-cds.pl line 71.
+# 2: got Use of uninitialized value $access in concatenation (.) or string at /Users/kyclark/work/students/njlytal/week10/03-find-cds.pl line 71.
+# got nothing, expected: 2: MTQLQISLLLTATISLLHLVVATPYEAYPIGKQYPPVARVNESFTFQISNDTYKSSVDKTAQITYNCFDLPSWLSFDSSSRTFSGEPSSDLLSDANTTLYFNVILEGTDSADSTSLNNTYQFVVTNRPSISLSSDFNLLALLKNYGYTNGKNALKLDPNEVFNVTFDRSMFTNEESIVSYYGRSQLYNAPLPNWLFFDSGELKFTGTAPVINSAIAPETSYSFVIIATDIEGFSAVEVEFELVIGAHQLTTSIQNSLIINVTDTGNVSYDLPLNYVYLDDDPISSDKLGSINLLDAPDWVALDNATISGSVPDELLGKNSNPANFSVSIYDTYGDVIYFNFEVVSTTDLFAISSLPNINATRGEWFSYYFLPSQFTDYVNTNVSLEFTNSSQDHDWVKFQSSNLTLAGEVPKNFDKLSLGLKANQGSQSQELYFNIIGMDSKITHSNHSANATSTRSSHHSTSTSSYTSSTYTAKISSTSAAATSSAPAALPAANKTSSHNKKAVAIACGVAIPLGVILVALICFLIFWRRRRENPDDENLPHAISGPDLNNPANKPNQENATPLNNPFDDDASSYDDTSIARRLAALNTLKLDNHSATESDISSVDEKRDSLSGMNTYNDQFQSQSKEELLAKPPVQPPESPFFDPQNRSSSVYMDSEPAVNKSWRYTGNLSPVSDIVRDSYGSQKTVDTEKLFDLEAPEKEKRTSRDVTMSSLDPWNSNISPSPVRKSVTPSPYNVTKHRNRHLQNIQDSQSGKNGITPTTMSTSSSDDFVPVKDGENFCWVHSMEPDRRPSKKRLVDFSNKSNVNVGQVKDIHGRIPEML
+# got nothing, expected: 3: MNRWVEKWLRVYLKCYINLILFYRNVYPPQSFDYTTYQSFNLPQFVPINRHPALIDYIEELILDVLSKLTHVYRFSICIINKKNDLCIEKYVLDFSELQHVDKDDQIITETEVFDEFRSSLNSLIMHLEKLPKVNDDTITFEAVINAIELELGHKLDRNRRVDSLEEKAEIERDSNWVKCQEDENLPDNNGFQPPKIKLTSLVGSDVGPLIIHQFSEKLISGDDKILNGVYSQYEEGESIFGSLF
+# got nothing, expected: NM_001298872 has 1 CDS
+# got nothing, expected: 1: MDNFGLGGSDLSKGQIFQVLVRLSVASLITYYSVKWMMNQMDPTSKNKKKAKVLAEEQLKRLAEQEGFKLRGQEFSDYELMIASHLVVPADITVSWADIAGLDSVIQELRESVVLPIQHKDLFKHSKLWQAPKGVLLHGPPGCGKTLIAKATAKEAGMRFINLDVAILTDKWYGESQKLTSAVFSLASRIEPCIIFIDEIDSFLRSRNMNDHEATAMMKTQFMMLWDGLSTNANSTVIVMGATNRPQDLDKAIVRRMPAQFHIGLPSETQRKDILKLILQSEEVSQDVDLNRLSKLTNGFSGSDLREMCRNASVYRMRQLITSRDPSATALDRNNVRITMDDLLGSHLKIKESKMHTSSLFLENRIELD
+# Looks like you failed 1 test of 25.
