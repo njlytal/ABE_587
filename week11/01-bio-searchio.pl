@@ -72,8 +72,6 @@ sub get_args {
     my %args;
     GetOptions(
         \%args,
-        'number=i',
-        'out_dir=s',
         'help',
         'man',
     ) or pod2usage(2);
