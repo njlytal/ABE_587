@@ -1,0 +1,1 @@
+/pbs/cluster/r1i2n9/mom_priv/jobs/473786[1].service0.SC: line 24: 25888 Killed                  $BLAST -query $FASTA -db $BLASTDB -evalue $EVAL -out $BLAST_OUT_DIR/$FILE.${PBS_ARRAY_INDEX}.blastout -max_hsps $MAX_HSPS -num_descriptions $DESC -num_alignments $ALN -num_threads $NUM_THREADS
