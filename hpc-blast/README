@@ -4,7 +4,9 @@ README
 
 My job was in queue for a long time, but finished overnight. Unfortunately,
 it appears an error occurred with the run-blast.sh code, as detailed in the
-example std-err file in this folder.
+example std-err file in this folder. It seems the last line is to blame,
+though the file merely mentions the process being killed rather than anything
+more specific.
 
 I'm not certain whether it was a mistake I made copying or an issue with
 the code itself, but it doesn't seem to be working as intended.
